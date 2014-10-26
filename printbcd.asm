@@ -14,10 +14,13 @@ printbcd proc
     mov dl, '-'
     int 21h
 skipz:
+    cmp bx, si
+    jle L110
     dec bx
     cmp byte ptr [bx], 0
     je skipz
     
+L110:
     mov dl, [bx]
     test dl, 0f0h
     jnz printdigs
@@ -25,6 +28,8 @@ skipz:
     add dl, '0'
     int 21h
     dec bx
+    cmp bx, si
+    jl printbcd_cleanup
 printdigs:
     mov dl, [bx]
     shr dl, cl
