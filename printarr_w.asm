@@ -19,7 +19,7 @@ printarr_w proc
     cleanup_printarr_w:
     pop si
     pop cx
-    pop bx
     pop ax
+    pop bp
     ret 2   ; return and remove the parameter
 printarr_w endp
