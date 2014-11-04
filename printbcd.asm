@@ -14,13 +14,12 @@ printbcd proc
     mov dl, '-'
     int 21h
 skipz:
-    cmp bx, si
-    jle L110
     dec bx
+    cmp bx, si      ; Check that bx remins in bounds
+    je first
     cmp byte ptr [bx], 0
     je skipz
-    
-L110:
+first:
     mov dl, [bx]
     test dl, 0f0h
     jnz printdigs
@@ -28,7 +27,7 @@ L110:
     add dl, '0'
     int 21h
     dec bx
-    cmp bx, si
+    cmp bx, si      ; Check that bx remins in bounds, this fixes single digit printing
     jl printbcd_cleanup
 printdigs:
     mov dl, [bx]
