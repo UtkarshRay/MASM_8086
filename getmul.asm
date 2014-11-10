@@ -3,8 +3,8 @@
 ; bx contains addr for word containing 10
 getmul proc
     push cx
-    jcxz getmul_cleanup
     fld1
+    jcxz getmul_cleanup
     getmul_1:
         fimul word ptr [bx]
         loop getmul_1
